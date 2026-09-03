@@ -30,8 +30,13 @@ test("forced type is required in the prompt", () => {
   assert.match(p, /🐛/);
 });
 
-test("user prompt wraps the diff", () => {
-  const u = buildUserPrompt("diff --git a/x b/x");
+test("user prompt wraps the diff and length profile", () => {
+  const u = buildUserPrompt(
+    "diff --git a/x b/x",
+    "Diff size: 12 line(s), 1 file(s). Profile: tiny.\nWHY: exactly 1 bullet.",
+  );
+  assert.match(u, /Profile: tiny/);
+  assert.match(u, /exactly 1 bullet/);
   assert.match(u, /staged git diff/);
   assert.match(u, /diff --git a\/x b\/x/);
 });

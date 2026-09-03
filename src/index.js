@@ -24,6 +24,7 @@ import { completeChat } from "./llm.js";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { diffProfile, lengthInstruction } from "./diff-profile.js";
 import { buildSystemPrompt, buildUserPrompt } from "./prompt.js";
 
 const pkg = JSON.parse(
@@ -74,12 +75,14 @@ export async function main(argv) {
     }
   }
 
+  const profile = diffProfile(diff);
   const message = await completeChat({
     baseUrl: settings.baseUrl,
     model: settings.resolvedModel,
     apiKey: settings.apiKey || "ollama",
     systemPrompt: buildSystemPrompt({ forcedType: args.type }),
-    userPrompt: buildUserPrompt(diff),
+    userPrompt: buildUserPrompt(diff, lengthInstruction(profile)),
+    maxTokens: profile.maxTokens,
   });
 
   if (args.print) {

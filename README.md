@@ -124,7 +124,7 @@ yf-commit --type 4     # same (1–11)
 yf-commit --all -y --type feat
 ```
 
-The JS does not classify the diff. The model picks **one** type. Mixed diffs (feature + tests + docs) get a **dominant** type, usually `feat` or `fix`. Override with `--type`. Default still prints the draft so you can cancel.
+The JS does not classify the **type**. It does measure **size** (insertions + deletions, plus file count) and tells the model a length budget: tiny diffs get exactly 1 WHY + 1 WHAT; large diffs get more WHAT, grouped. WHY does not grow with every extra hundred lines. Mixed diffs still get **one** dominant type (`feat` / `fix` usually). Override with `--type`. Default still prints the draft so you can cancel.
 
 | # | Type | Meaning |
 |---|---|---|

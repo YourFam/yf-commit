@@ -41,17 +41,18 @@ ${DEF_LINES}
 - WHY: user/business impact, plain language.
 - WHAT CHANGED: technical, from the diff, not staging stats.
 - FILES IMPACTED: paths relative to this repository's root (the current working directory).
-- Adaptive length: tiny diffs → few bullets; large diffs → more, grouped if needed. Never pad. Never write "Updated N staged file(s)."
+- Obey the length profile in the user message (bullet counts for WHY / WHAT). Never pad. Never write "Updated N staged file(s)."
 - No footer. Do not add WORKTREE, BRANCH, MACHINE, or hostname lines.
 - Do not mention any product or company unless it appears in the diff.`;
 }
 
-export function buildUserPrompt(diff) {
+export function buildUserPrompt(diff, lengthBlock = "") {
   let body = String(diff);
   if (body.length > MAX_DIFF_CHARS) {
     body = `${body.slice(0, MAX_DIFF_CHARS)}\n\n[diff truncated]`;
   }
-  return `Generate a commit message for this staged git diff:\n\n${body}`;
+  const prefix = lengthBlock ? `${lengthBlock}\n\n` : "";
+  return `${prefix}Generate a commit message for this staged git diff:\n\n${body}`;
 }
 
 export function cleanMessage(text) {

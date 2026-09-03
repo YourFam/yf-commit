@@ -15,6 +15,7 @@ export async function completeChat({
   apiKey,
   systemPrompt,
   userPrompt,
+  maxTokens = 1500,
 }) {
   const root = String(baseUrl || "").replace(/\/+$/, "");
   const url = `${root}/chat/completions`;
@@ -34,7 +35,7 @@ export async function completeChat({
       body: JSON.stringify({
         model,
         temperature: 0.3,
-        max_tokens: 1500,
+        max_tokens: maxTokens,
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
