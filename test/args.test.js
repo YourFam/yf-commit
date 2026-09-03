@@ -35,6 +35,8 @@ test("--type name and number", () => {
   assert.equal(parseArgs(sh("--type", "fix")).type, "fix");
   assert.equal(parseArgs(sh("--type", "4")).type, "fix");
   assert.equal(parseArgs(sh("--type=3")).type, "feat");
+  assert.equal(parseArgs(sh("--type", "ci")).type, "ci");
+  assert.equal(parseArgs(sh("--type", "10")).type, "style");
 });
 
 test("--print and --all", () => {

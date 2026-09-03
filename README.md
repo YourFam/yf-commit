@@ -120,9 +120,27 @@ yf-commit --all -y     # add everything → commit now (no confirm)
 yf-commit --print      # print only; do not commit (still needs a staged diff, or add --all)
 yf-commit --all --print
 yf-commit --type fix   # force type
-yf-commit --type 4     # same (1–6: chore, docs, feat, fix, refactor, test)
+yf-commit --type 4     # same (1–11)
 yf-commit --all -y --type feat
 ```
+
+The JS does not classify the diff. The model picks **one** type. Mixed diffs (feature + tests + docs) get a **dominant** type, usually `feat` or `fix`. Override with `--type`. Default still prints the draft so you can cancel.
+
+| # | Type | Meaning |
+|---|---|---|
+| 1 | `chore` | Maintenance that is none of the below |
+| 2 | `docs` | Docs only |
+| 3 | `feat` | User-visible new capability |
+| 4 | `fix` | User-visible bug |
+| 5 | `refactor` | Same behavior, different structure |
+| 6 | `test` | Tests only |
+| 7 | `build` | Compile, bundler, packaging |
+| 8 | `ci` | Pipeline / GitHub Actions / hooks |
+| 9 | `perf` | Same behavior, measurably faster |
+| 10 | `style` | Formatting only, zero logic |
+| 11 | `revert` | Undoes a previous commit |
+
+Priority on mixed diffs: `revert` → `fix` → `feat` → `test` → `docs` → `perf` → `refactor` → `style` → `ci` → `build` → `chore`.
 
 Default prints the draft in the terminal. Enter or `y` to commit, `n` or Ctrl+C to cancel. It does not open an editor.
 

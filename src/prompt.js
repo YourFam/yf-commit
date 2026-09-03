@@ -1,11 +1,20 @@
-import { TYPE_EMOJI } from "./types.js";
+import {
+  TYPE_DEFS,
+  TYPE_EMOJI,
+  TYPE_PRIORITY,
+  TYPES,
+} from "./types.js";
 
 const MAX_DIFF_CHARS = 100_000;
+
+const EMOJI_LINE = TYPES.map((t) => `${TYPE_EMOJI[t]} ${t}`).join(", ");
+
+const DEF_LINES = TYPES.map((t) => `- ${t}: ${TYPE_DEFS[t]}`).join("\n");
 
 export function buildSystemPrompt({ forcedType } = {}) {
   const typeLine = forcedType
     ? `You MUST use type "${forcedType}" and emoji ${TYPE_EMOJI[forcedType]} on line 1.`
-    : "Use conventional commit types: feat, fix, refactor, chore, docs, test.";
+    : `Use exactly one conventional commit type: ${TYPES.join(", ")}.`;
 
   return `You are a commit message generator. Output only the commit message. No preamble, no markdown fences, no extra commentary.
 
@@ -24,7 +33,10 @@ emoji type(scope): brief description
 
 Rules:
 - ${typeLine}
-- Emoji on line 1 (✨ feat, 🐛 fix, ♻️ refactor, 🔧 chore, 📝 docs, 🧪 test).
+- Type meanings:
+${DEF_LINES}
+- ${TYPE_PRIORITY}
+- Emoji on line 1 (${EMOJI_LINE}).
 - First line under 72 characters.
 - WHY: user/business impact, plain language.
 - WHAT CHANGED: technical, from the diff, not staging stats.

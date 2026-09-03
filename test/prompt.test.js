@@ -17,6 +17,11 @@ test("system prompt uses locked sections and no YourFam / Timentra", () => {
   assert.doesNotMatch(p, /monorepo called/i);
   assert.match(p, /WORKTREE/);
   assert.match(p, /Do not add WORKTREE/);
+  for (const t of ["feat", "fix", "ci", "build", "perf", "style", "revert"]) {
+    assert.match(p, new RegExp(`\\b${t}\\b`));
+  }
+  assert.match(p, /dominant type/i);
+  assert.match(p, /Mixed diffs are normal/);
 });
 
 test("forced type is required in the prompt", () => {

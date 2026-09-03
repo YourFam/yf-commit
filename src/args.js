@@ -1,5 +1,5 @@
 import { CliError } from "./errors.js";
-import { parseType } from "./types.js";
+import { parseType, typeHelpLines } from "./types.js";
 
 /**
  * @typedef {object} ParsedArgs
@@ -58,7 +58,7 @@ export function parseArgs(argv) {
     } else if (a === "--type") {
       const value = args[i + 1];
       if (value == null || value.startsWith("-")) {
-        throw new CliError("Flag --type requires a value: feat|fix|… or 1–6.");
+        throw new CliError("Flag --type requires a value: feat|fix|… or 1–11.");
       }
       result.type = parseType(value);
       i += 1;
@@ -96,10 +96,13 @@ Usage:
   yf-commit -y           Commit immediately (also --yes, --auto)
   yf-commit --print      Print message only; do not commit
   yf-commit --all        git add -A, then same as default
-  yf-commit --type fix   Force type (name or 1–6)
+  yf-commit --type fix   Force type (name or 1–11)
   yf-commit init         Provider, model, API key → ~/.yf-commit/config.json
   yf-commit init --show  Masked status
   yf-commit init --reset Delete saved config
+
+Types (mixed diffs: one dominant type, not a blend):
+${typeHelpLines()}
 
 This does not run your test suite. YourFam does not give you an API key.
 
