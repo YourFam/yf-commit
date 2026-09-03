@@ -1,0 +1,44 @@
+{
+  "name": "@yourfam/yf-commit",
+  "version": "0.1.0",
+  "description": "AI commit message from your staged git diff",
+  "type": "module",
+  "bin": {
+    "yf-commit": "./bin/yf-commit.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "yf-commit": "node ./bin/yf-commit.js"
+  },
+  "keywords": [
+    "git",
+    "commit",
+    "conventional-commits",
+    "cli"
+  ],
+  "author": "YourFam",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YourFam/yf-commit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YourFam/yf-commit/issues"
+  },
+  "homepage": "https://github.com/YourFam/yf-commit#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.11.0"
+  }
+}
