@@ -95,15 +95,33 @@ Need a host we don’t list? Set `YF_COMMIT_BASE_URL` and `YF_COMMIT_MODEL`.
 
 ## Use
 
-Stage files, then:
+Flags combine. Typical paths:
+
+**You stage, then generate**
 
 ```bash
+git add path/to/file
 yf-commit              # print draft → confirm → git commit
-yf-commit -y           # commit now (also --yes, --auto)
-yf-commit --print      # print only; do not commit
-yf-commit --all        # git add -A, then same as default
+yf-commit -y           # same, skip confirm (also --yes, --auto)
+```
+
+**Skip staging — let yf-commit `git add -A`**
+
+`--all` runs `git add -A` first (tracked changes and untracked files, except ignored), then the same as above.
+
+```bash
+yf-commit --all        # add everything → print draft → confirm → commit
+yf-commit --all -y     # add everything → commit now (no confirm)
+```
+
+**Other flags (mix with `--all` / `-y` as needed)**
+
+```bash
+yf-commit --print      # print only; do not commit (still needs a staged diff, or add --all)
+yf-commit --all --print
 yf-commit --type fix   # force type
 yf-commit --type 4     # same (1–6: chore, docs, feat, fix, refactor, test)
+yf-commit --all -y --type feat
 ```
 
 Default prints the draft in the terminal. Enter or `y` to commit, `n` or Ctrl+C to cancel. It does not open an editor.
