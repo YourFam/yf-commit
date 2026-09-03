@@ -176,8 +176,10 @@ npm test
 node ./bin/yf-commit.js --help
 ```
 
-Maintainer: YourFam (`kamal-yourfam` on npm). License MIT.
+Maintainer: YourFam (`kamal-yourfam` on npm). Proprietary. All rights reserved.
 
 ## License
 
-MIT
+Proprietary. Copyright (c) 2026 YourFam. All rights reserved.
+
+You may install and run `yf-commit` as distributed by YourFam. You may not copy, modify, or redistribute the source. See [LICENSE](./LICENSE).
