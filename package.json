@@ -4,7 +4,7 @@
   "description": "AI commit message from your staged git diff",
   "type": "module",
   "bin": {
-    "yf-commit": "./bin/yf-commit.js"
+    "yf-commit": "bin/yf-commit.js"
   },
   "files": [
     "bin",
