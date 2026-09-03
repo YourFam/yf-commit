@@ -25,7 +25,11 @@
     "conventional-commits",
     "cli"
   ],
-  "author": "YourFam",
+  "author": {
+    "name": "YourFam",
+    "email": "kamal@yourfam.co",
+    "url": "https://github.com/YourFam"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
