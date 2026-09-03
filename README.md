@@ -24,7 +24,7 @@ Then from any git repo:
 yf-commit
 ```
 
-The command is `yf-commit`. After a **global** install, npm prints a short hint (`yf-commit installed…`). That does not run for `-D`, CI, or `npx`.
+The command is `yf-commit`.
 
 ## Alternate modes of install
 
