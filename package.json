@@ -30,7 +30,7 @@
     "email": "kamal@yourfam.co",
     "url": "https://github.com/YourFam"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/YourFam/yf-commit.git"
