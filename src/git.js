@@ -62,10 +62,22 @@ export function getStagedDiff(cwd) {
 }
 
 /**
- * @param {string} diff
+ * Unstaged, untracked, or staged-but-uncommitted paths.
+ * @param {string} cwd
  */
-export function requireStagedDiff(diff) {
+export function isWorkingTreeDirty(cwd) {
+  return git(cwd, ["status", "--porcelain"]).trim() !== "";
+}
+
+/**
+ * @param {string} diff
+ * @param {{ all?: boolean, dirty?: boolean }} [opts]
+ */
+export function requireStagedDiff(diff, { all = false, dirty = false } = {}) {
   if (!diff || !String(diff).trim()) {
+    if (all || !dirty) {
+      throw new CliError("Nothing to commit, working tree clean.");
+    }
     throw new CliError("Nothing staged. Stage files first, or pass --all.");
   }
   return diff;

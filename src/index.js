@@ -12,6 +12,7 @@ import {
   ensureGitRepo,
   getStagedDiff,
   gitAddAll,
+  isWorkingTreeDirty,
   requireStagedDiff,
 } from "./git.js";
 import {
@@ -55,7 +56,10 @@ export async function main(argv) {
 
   if (args.all) gitAddAll(cwd);
 
-  const diff = requireStagedDiff(getStagedDiff(cwd));
+  const diff = requireStagedDiff(getStagedDiff(cwd), {
+    all: args.all,
+    dirty: isWorkingTreeDirty(cwd),
+  });
 
   let settings = resolveSettings(loadConfig());
   if (!hasUsableKey(settings)) {

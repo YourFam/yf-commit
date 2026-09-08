@@ -144,7 +144,7 @@ Priority on mixed diffs: `revert` → `fix` → `feat` → `test` → `docs` →
 
 Default prints the draft in the terminal. Enter or `y` to commit, `n` or Ctrl+C to cancel. It does not open an editor.
 
-Nothing staged → error, exit 1. No `git add` unless `--all`.
+Empty index with unstaged or untracked files → error, exit 1, hint to stage or pass `--all`. Clean tree (or `--all` that staged nothing) → `Nothing to commit, working tree clean.` No `git add` unless `--all`.
 
 Scripts / CI: `--print` or `-y`. It will not wait for a paste or a confirm.
 
