@@ -8,6 +8,7 @@ YourFam does not give you an API key. Use your own OpenAI-compatible key.
 
 - **Source / README:** https://github.com/YourFam/yf-commit
 - **npm:** https://www.npmjs.com/package/@yourfam/yf-commit
+- **Unscoped alias:** https://www.npmjs.com/package/yf-commit
 - **Issues:** https://github.com/YourFam/yf-commit/issues
 
 ## Install
@@ -65,7 +66,10 @@ No install at all (npm fetches and runs the published package):
 
 ```bash
 npx @yourfam/yf-commit
+npx yf-commit
 ```
+
+`npx yf-commit` is the unscoped alias of `@yourfam/yf-commit` (same CLI, same version). Both are yours.
 
 ## First run
 
@@ -177,6 +181,20 @@ node ./bin/yf-commit.js --help
 ```
 
 Maintainer: YourFam (`kamal-yourfam` on npm). MIT.
+
+## Publish the unscoped alias (maintainers)
+
+The GitHub repo publishes two npm packages at the same version:
+
+1. `npm publish --access public` from the repo root → `@yourfam/yf-commit`
+2. Then from `alias/`, with matching `version` and `dependencies["@yourfam/yf-commit"]`:
+
+```bash
+cd alias
+npm publish --access public
+```
+
+That second package is named `yf-commit` and only shims the scoped CLI so `npx yf-commit` cannot be squatted.
 
 ## License
 
