@@ -13,6 +13,7 @@ function git(cwd, args, opts = {}) {
     maxBuffer: 32 * 1024 * 1024,
     input: opts.input,
     windowsHide: true,
+    env: opts.env ? { ...process.env, ...opts.env } : process.env,
   });
   if (result.error) {
     if (result.error.code === "ENOENT") {
@@ -89,4 +90,21 @@ export function requireStagedDiff(diff, { all = false, dirty = false } = {}) {
  */
 export function commitWithMessage(cwd, message) {
   git(cwd, ["commit", "-F", "-"], { input: message });
+}
+
+/**
+ * Identity of HEAD after a successful commit.
+ * `branch` is empty when detached.
+ * @param {string} cwd
+ * @returns {{ shortSha: string, branch: string, shortstat: string }}
+ */
+export function getHeadReceipt(cwd) {
+  const shortSha = git(cwd, ["rev-parse", "--short", "HEAD"]).trim();
+  const branch = git(cwd, ["branch", "--show-current"]).trim();
+  const shortstat = git(
+    cwd,
+    ["diff-tree", "--no-commit-id", "--shortstat", "-r", "--root", "HEAD"],
+    { env: { LC_ALL: "C", LANG: "C" } },
+  );
+  return { shortSha, branch, shortstat };
 }

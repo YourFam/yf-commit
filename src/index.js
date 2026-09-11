@@ -10,11 +10,13 @@ import { CliError } from "./errors.js";
 import {
   commitWithMessage,
   ensureGitRepo,
+  getHeadReceipt,
   getStagedDiff,
   gitAddAll,
   isWorkingTreeDirty,
   requireStagedDiff,
 } from "./git.js";
+import { printAutoReceipt, printConfirmReceipt } from "./receipt.js";
 import {
   isTTY,
   offerInitNow,
@@ -94,9 +96,8 @@ export async function main(argv) {
     return 0;
   }
 
-  console.log(message);
-
   if (!args.auto) {
+    console.log(message);
     if (!isTTY()) {
       throw new CliError(
         "Non-interactive stdin: pass --auto / -y to commit, or --print to only print.",
@@ -109,6 +110,12 @@ export async function main(argv) {
   }
 
   commitWithMessage(cwd, message);
+  const receipt = getHeadReceipt(cwd);
+  if (args.auto) {
+    printAutoReceipt(receipt, message);
+  } else {
+    printConfirmReceipt(receipt);
+  }
   return 0;
 }
 
