@@ -1,6 +1,6 @@
 {
   "name": "yf-commit",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Unscoped alias of @yourfam/yf-commit — AI commit message from your staged git diff",
   "type": "module",
   "bin": {
@@ -38,6 +38,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@yourfam/yf-commit": "0.3.0"
+    "@yourfam/yf-commit": "0.4.0"
   }
 }
